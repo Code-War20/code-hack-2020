@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int prefix(string exp){
+	stack<int> s;
+	for(int i = exp.size() - 1; i >= 0; i--){
+		if(isdigit(exp[i])){
+			s.push(exp[i] - 48);
+		}
+		else{
+			int a = s.top();
+			s.pop();
+			int b = s.top();
+			s.pop();
+			switch(exp[i]){
+				case '+':
+					s.push(a + b);
+					break;
+				case '-':
+					s.push(b - a);
+					break;
+				case '*':
+					s.push(a * b);
+					break;
+				case '/':
+					s.push(a / b);
+					break;
+				default:
+					cout << "Invalid Operation" << endl;
+			}
+		}
+	}
+	return s.top();
+}
+
+int main()
+{
+	string exp;
+	getline(cin, exp);
+	cout << prefix(exp);
+
+	return 0;
+}
